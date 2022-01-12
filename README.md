@@ -1,11 +1,7 @@
 # SQLIA Prevention System in a website
 
 <h4><p>SQL Injection is very serious problem in the website.</br>
-To overcome this problem we use javascript php and md5 encryption.</br>
-Every language works as a security layer in this project.</br>
-Javascript prevent the use of special characters in input fields.</br>
-Also php code also detect the manipulated query and prevent the system.</br>
-We also use the md5 encryption for the database security.</br>
+SQL injection is a web security vulnerability that allows an attacker to interfere with the queries that an application makes to its database. It generally allows an attacker to view data that they are not normally able to retrieve. This might include data belonging to other users, or any other data that the application itself is able to access. In many cases, an attacker can modify or delete this data, causing persistent changes to the application's content or behavior. SQL injection usually occurs when you ask a user for input, like their username/userid, and instead of a name/id, the user gives you an SQL statement that you will unknowingly run on your database. The impact SQL injection can have on a business is far-reaching. A successful attack may result in the unauthorized viewing of user lists, the deletion of entire tables and, in certain cases, the attacker gaining administrative rights to a database, all of which are highly detrimental to a business. When calculating the potential cost of an SQLi, it’s important to consider the loss of customer trust should personal information such as phone numbers, addresses, and credit card details be stolen. While this vector can be used to attack any SQL database, websites are the most frequent targets. To overcome this problem we use javascript php and md5 encryption. Every language works as a security layer in this project. Javascript prevent the use of special characters in input fields. Also php code also detect the manipulated query and prevent the system. We also use the md5 encryption for the database security.</br>
 
 </p>
 </h4>
