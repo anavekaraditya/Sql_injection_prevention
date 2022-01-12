@@ -5,7 +5,7 @@
   <title>SQL Injection Prevention</title>
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-  <script type="text/javascript" src="js/validation.js"></script>  
+  <!--<script type="text/javascript" src="js/validation.js"></script>  -->
 </head>
 <body>
   <div class="header">
@@ -17,7 +17,6 @@
   	<div class="input-group">
   		<label>Username</label>
   		<input type="text" name="username" id="username" >
-		<span id="lblError" style="color: red"></span><br>
   	</div>
   	<div class="input-group">
   		<label>Password</label>

@@ -9,8 +9,8 @@
   }
   
   .header {
-    width: 30%;
-    margin: 150px auto 0px;
+    width: 70%;
+    margin: 50px auto 0px;
     color: white;
     background: #ffc400;
     text-align: center;
@@ -20,7 +20,7 @@
     padding: 20px;
   }
   form, .content {
-    width: 30%;
+    width: 70%;
     margin: 0px auto;
     padding: 20px;
     border: 1px solid #B0C4DE;
@@ -35,6 +35,19 @@
     text-align: left;
     margin: 3px;
   }
+
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 60%;
+    height: 20px;
+    padding: 10px;
+    text-align: center;
+  }
+
+
+
+
   .input-group input {
     height: 30px;
     width: 93%;

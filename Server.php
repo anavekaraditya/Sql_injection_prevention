@@ -5,8 +5,13 @@ session_start();
 $username = "";
 $usermatch = "";
 $email    = "";
+$password = "";
+$password_1 = "";
 $errors = array(); 
-
+$sqlia = array();
+$flag1 = false;
+$flag2 = false;
+$flag3 = false;
 // connect to the database
 $db = mysqli_connect('localhost', 'root', '', 'sqlia');
 
@@ -30,8 +35,8 @@ if (isset($_POST['reg_user'])) {
   if ($password_1 != $password_2) {
 	array_push($errors, "The two passwords do not match");
   }
-  $email = md5($email);
-  $username = md5($username);
+  //$email = md5($email);
+  //$username = md5($username);
   // first check the database to make sure 
   // a user does not already exist with the same username and/or email
   $user_check_query = "SELECT * FROM users WHERE username='$username' OR email='$email' LIMIT 1";
@@ -56,7 +61,7 @@ if (isset($_POST['reg_user'])) {
   	mysqli_query($db, $query);
   	$_SESSION['username'] = $usermatch;
   	$_SESSION['success'] = "You are now logged in";
-  	header('location: index.php');
+  	header('location: list.php');
   }
 }
 
@@ -75,22 +80,60 @@ if (isset($_POST['login_user'])) {
   	array_push($errors, "Password is required");
   }
 
-  if (count($errors) == 0) {
+  $ip = $_SERVER['REMOTE_ADDR'];
+  $ts = date("Y-m-d H:i:s");
+  $pg = "login.html";
+  $has_equ = strpos($username, '=') !== false;
+  $has_exm = strpos($username, '!') !== false;
+  $has_and = stripos($username, 'and') !== false;
+  $has_or = stripos($username, 'or') !== false;
+  $has_com1 = strpos($username, '"') !== false;
+  $has_com2 = strpos($username, "'") !== false;
+
+  if (($has_com2+$has_com1+$has_or+$has_and+$has_exm+$has_equ)!=0){
+    $flag1 = true;
+    $sql = "INSERT INTO detection_log (time, error_type, ip, page) VALUES('$ts', '1', '$ip','$pg')";
+    mysqli_query($db, $sql);
+}
+function word_count($q){
+  return count(explode("'",$q));
+}
+
+$original_query = "SELECT * FROM users WHERE username='username' AND password='password'";
+$query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+print_r($query);
+$ele_of_words = explode("'",$query);
+
+if (count($ele_of_words) != word_count($original_query)){
+    $flag2 = true;
+    $sql = "INSERT INTO detection_log (time, error_type, ip, page) VALUES('$ts', '2', '$ip','$pg')";
+    mysqli_query($db, $sql);
+}
+
+$results = mysqli_query($db, $query);
+if (mysqli_num_rows($results) > 1){
+  $flag3 = true;
+  $sql = "INSERT INTO detection_log (time, error_type, ip, page) VALUES('$ts', '3', '$ip','$pg')";
+  mysqli_query($db, $sql);
+}
+
+  if (count($errors) == 0 && $flag1+$flag2+$flag3<2) {
   	$password = md5($password);
-    $username = md5($username);
+    $username = $username;
   	$query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
   	$results = mysqli_query($db, $query);
   	if (mysqli_num_rows($results) == 1) {
-      if($username != $usermatch){
+      if($username == $usermatch){
         $_SESSION['username'] = $usermatch;
         $_SESSION['success'] = "You are now logged in";
-        header('location: index.php');
+        header('location: list.php');
       }
   	  
   	}else {
   		array_push($errors, "Wrong username/password combination");
   	}
   }
+
 }
 
 ?>
